@@ -29,13 +29,13 @@ export default function DetailsPage() {
         const rawData = json.TABLE_DATA?.data || []
         const rows = rawData.map((d, i) => ({
           id: i + 1,
-          name: d[0],
-          department: d[1],
-          city: d[2],
-          age: d[3],
-          joined: d[4],
-          salary: d[5]?.replace(/[\$,]/g, '') || '0',
-          email: `${d[0].toLowerCase().replace(/\s+/g, '.')}@company.com`,
+          name: d[0] || 'Unknown',
+          department: d[1] || 'Unknown',
+          city: d[2] || 'Unknown',
+          age: d[3] || '0',
+          joined: d[4] || '',
+          salary: (d[5] || '').replace(/[\$,]/g, '') || '0',
+          email: `${(d[0] || 'user').toLowerCase().replace(/\s+/g, '.')}@company.com`,
           status: 'Active'
         }))
         const emp = rows.find(r => String(r.id) === String(id))
@@ -118,11 +118,11 @@ export default function DetailsPage() {
     const canvas = document.createElement('canvas')
     canvas.width = 480; canvas.height = 360
     const ctx = canvas.getContext('2d')
-    const photo = new Image()
+    const photo = new window.Image()
     photo.src = capturedPhoto
     await new Promise(r => { photo.onload = r })
     ctx.drawImage(photo, 0, 0, canvas.width, canvas.height)
-    const sig = new Image()
+    const sig = new window.Image()
     sig.src = sigCanvasRef.current.toDataURL('image/png')
     await new Promise(r => { sig.onload = r })
     ctx.globalAlpha = 0.85

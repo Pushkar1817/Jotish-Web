@@ -113,13 +113,13 @@ export default function AnalyticsPage() {
         const rawData = json.TABLE_DATA?.data || []
         const rows = rawData.map((d, i) => ({
           id: i + 1,
-          name: d[0],
-          department: d[1],
-          city: d[2],
-          age: d[3],
-          joined: d[4],
-          salary: d[5]?.replace(/[\$,]/g, '') || '0',
-          email: `${d[0].toLowerCase().replace(/\s+/g, '.')}@company.com`,
+          name: d[0] || 'Unknown',
+          department: d[1] || 'Unknown',
+          city: d[2] || 'Unknown',
+          age: d[3] || '0',
+          joined: d[4] || '',
+          salary: (d[5] || '').replace(/[\$,]/g, '') || '0',
+          email: `${(d[0] || 'user').toLowerCase().replace(/\s+/g, '.')}@company.com`,
           status: 'Active'
         }))
         setEmployees(rows)
